@@ -1,0 +1,74 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css/verified.css' %}">
+    <title>Document</title>
+</head>
+<body>
+    {% if novalidemailserror %}
+    <script>
+        alert('There are no valid emails to send')
+    </script>
+    {% elif emailloginfail %}
+    <script>
+        alert('Failed to Login, check the email id, password and Try Again!')
+    </script>
+    {% elif emailsendfail %}
+    <script>
+        alert('Failed to send email. Try Again!')
+    </script>
+        {% elif nointerneterror %}
+    <script>
+        alert("couldn't connect to the smtp server")
+    </script>
+    {% endif %}
+
+        <div class="container">
+            <div class="container1">
+                <div class="back">
+                    <!-- <a href="/"><img src="{% static 'images/back.png' %}" width="50" alt='Modified Green Arrow Left Button clip art'/></a> -->
+                    <a href="/"><div class="circle">&larr;</div></a>
+                </div>
+                <h1>My Verified Emails</h1>
+                <div class="valid">
+                    <div class="emails"><h3>Valid</h3></div>
+                    {% for x in valid %}
+                    <div class="emails"> {{ x }} </div>    
+                    {% endfor %}
+                </div>
+                <div class="invalid">
+                    <div class="emails"><h3>Invalid</h3></div>
+                    {% for y in invalid %}
+                    <div class="emails"> {{ y }} </div>    
+                    {% endfor %}
+                </div>
+            </div>
+
+
+
+            <div class="container2">
+                <h1>Send My Emails </h1>
+                <form id="senderform" method="post" action="verified">
+                    {% csrf_token %}
+                    <label for="sender">Sender's Email:</label><br>
+                    <input type="text" name="sender" id="sender" value="{% if sender %}{{sender}}{% endif %}" required><br>
+                    <img src="{% static 'images/info-3.png' %}" width="21" title="1. Go to Security tab in your Google Account settings &#13;2. Set up 2-Step Verification &#13;3. Go to App passwords in the security tab &#13;4. Set up an App password, select custom and give a name &#13;5. Use that password here to send mass mails"alt="">
+                    <label for="password">Sender's App password:</label><br>
+                    <input type="text" name="password" id="password" value="{% if password %}{{password}}{% endif %}" required> <br>
+                    <label for="subject">Subject:</label><br>
+                    <input type="text" name="subject" id="subject" value="{% if subject %}{{subject}}{% endif %}" required><br>
+                    <label for="text">Email Body:</label><br>
+                    <textarea name="text" cols="10" rows="10" id="text" required>{% if text %}{{text}}{% endif %}</textarea><br>
+                    <input type="hidden" name="validstr" value="{{ valid }}">
+                    <input type="hidden" name="invalidstr" value="{{ invalid }}">
+                    <button type="submit" name="submittosend" value="submit">Send Bulk</button>
+                </form>
+            </div>
+</body>
+
+</html>
+
