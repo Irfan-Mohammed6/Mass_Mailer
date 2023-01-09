@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="{% static 'css/verified.css' %}">
+    <link rel="stylesheet" href="{% static 'myapp/css/verified.css' %}">
     <title>Document</title>
 </head>
 <body>
@@ -56,7 +56,7 @@
                     {% csrf_token %}
                     <label for="sender">Sender's Email:</label><br>
                     <input type="text" name="sender" id="sender" value="{% if sender %}{{sender}}{% endif %}" required><br>
-                    <img src="{% static 'images/info-3.png' %}" width="21" title="1. Go to Security tab in your Google Account settings &#13;2. Set up 2-Step Verification &#13;3. Go to App passwords in the security tab &#13;4. Set up an App password, select custom and give a name &#13;5. Use that password here to send mass mails"alt="">
+                    <img src="{% static 'myapp/images/info-3.png' %}" width="21" title="1. Go to Security tab in your Google Account settings &#13;2. Set up 2-Step Verification &#13;3. Go to App passwords in the security tab &#13;4. Set up an App password, select custom and give a name &#13;5. Use that password here to send mass mails"alt="">
                     <label for="password">Sender's App password:</label><br>
                     <input type="text" name="password" id="password" value="{% if password %}{{password}}{% endif %}" required> <br>
                     <label for="subject">Subject:</label><br>

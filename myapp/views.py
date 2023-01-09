@@ -19,7 +19,7 @@ from django.contrib import messages
 # Create your views here.
 
 def index(request):
-    return render(request, 'index.html')
+    return render(request, 'myapp/index.html')
 
 def verified(request):
     
@@ -48,7 +48,7 @@ def verified(request):
                 data = p.read_csv(uploaded_file)
             except:
                 messages.info(request, 'Wrong File Type/Not a CSV')
-                return redirect ('index')
+                return redirect ('myapp/index')
 
             #reading the column "email from the csv file and returning error if no such column is found"
             
@@ -58,12 +58,12 @@ def verified(request):
                 list_of_emails =list(email_col)
             except:
                 messages.info(request, 'Incorrect file format, make sure the first coloumn is named ``email``')
-                return redirect ('index')
+                return redirect ('myapp/index')
 
             #checking if list is empty, if yes then go back to index page
             if not len(list_of_emails):
                 messages.info(request, 'File is empty no emails found')
-                return redirect ('index')
+                return redirect ('myapp/index')
 
 
             #validating valid and invalid emails using regex and for loop
@@ -80,7 +80,7 @@ def verified(request):
 
             #return the validated emails to the verified page 
             
-            return render(request, 'verified.html', {'valid': valid_mail, 'invalid': invalid_mail})
+            return render(request, 'myapp/verified.html', {'valid': valid_mail, 'invalid': invalid_mail})
 
             #check whether the button to verify is pressed
 
@@ -134,7 +134,7 @@ def verified(request):
 
             if(len(validstr) == 2):
                 context['novalidemailserror']="set"
-                return render(request, 'verified.html', context)
+                return render(request, 'myapp/verified.html', context)
             else:
 
                 '''
@@ -176,20 +176,20 @@ def verified(request):
                             smtp.login(sender,password)
                         except:
                             context['emailloginfail']="set"
-                            return render(request, 'verified.html', context)
+                            return render(request, 'myapp/verified.html', context)
                         try:
                             #send mails using smtp.sendmail() if failed set context['emailsendfail']
                             smtp.sendmail(sender,valid_mail,em.as_string())
                             messages.info(request, 'Emails sent successfully')
-                            return redirect ('index')
+                            return redirect ('myapp/index')
                         except:
                             context['emailsendfail']="set"
-                            return render(request, 'verified.html', context)
+                            return render(request, 'myapp/verified.html', context)
                 except:
                     context['nointerneterror']="set"
-                    return render(request, 'verified.html', context)
+                    return render(request, 'myapp/verified.html', context)
 
     elif request.method == 'GET':
 
         messages.info(request, 'Upload file to go to validate or send emails')
-        return redirect ('index')
+        return redirect ('myapp/index')
