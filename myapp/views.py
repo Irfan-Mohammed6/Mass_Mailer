@@ -22,8 +22,7 @@ def index(request):
     return render(request, 'index.html')
 
 def verified(request):
-    return redirect ('index')
-
+    
     context= {}
 
     #check for the POST method
