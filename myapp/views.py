@@ -3,15 +3,13 @@ import email
 from http import server
 import imp
 from tokenize import Number
-from urllib import request
-from urllib.request import Request
+# from urllib import request
+# from urllib.request import Request
 from django.shortcuts import redirect, render
 from email.message import EmailMessage
 import ssl
 import smtplib
 import pandas as p
-import os
-from django.core.files.storage import FileSystemStorage
 import re   
 from django.contrib import messages
 
